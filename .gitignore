@@ -51,9 +51,9 @@ wp-content/plugins/*
 # Ignore everything in "themes" except the active theme. #
 # ========================================================== #
 wp-content/themes/*
-!wp-content/themes/canadianadventureco/
+!wp-content/themes/quoteApp/
 
 # Ignore npm packages #
 # =================== #
-wp-content/themes/canadianadventureco/node_modules/
-wp-content/themes/canadianadventureco/gulpfile.js
+wp-content/themes/quoteApp/node_modules/
+wp-content/themes/quoteApp/gulpfile.js

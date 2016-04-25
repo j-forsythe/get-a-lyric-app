@@ -1,0 +1,55 @@
+/*--------------------------------------------------------------
+# Page Templates
+--------------------------------------------------------------*/
+html {
+  background: #000000;
+
+}
+/* Front page */
+.site-content {
+  width: 100vw;
+  text-align: center;
+  color: #ffffff;
+  background: #000000;
+}
+
+.button {
+  text-decoration: none;
+}
+
+.headphones {
+  height: 150px;
+  background: url(../../images/headphones.png) no-repeat center;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  a {
+    margin-bottom: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 50px;
+    color: #ffffff;
+    &:hover {
+      color: #aba6ad;
+    }
+  }
+}
+
+.quotes {
+  height: 50vh;
+  display: flex;
+  align-content: space-between;
+  flex-direction: column;
+  padding-top: 2rem;
+  margin: 1rem 3rem;
+
+  h2 {
+    text-align: right;
+  }
+}
+
+#quote-content {
+  height: 50%;
+  font-style: italic;
+}
