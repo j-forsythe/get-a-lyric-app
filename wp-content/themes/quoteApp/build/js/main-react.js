@@ -69,10 +69,6 @@
 
 	var _quoteApp2 = _interopRequireDefault(_quoteApp);
 
-	var _quoteContent = __webpack_require__(227);
-
-	var _quoteContent2 = _interopRequireDefault(_quoteContent);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_reactDom2.default.render(_react2.default.createElement(_quoteApp2.default, null), document.querySelector('#quotes'));
@@ -25457,18 +25453,34 @@
 
 	var _quoteContent2 = _interopRequireDefault(_quoteContent);
 
+	var _reactRouter = __webpack_require__(167);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var QuoteApp = _react2.default.createClass({
 	  displayName: 'QuoteApp',
 
 
+	  //  _handleClick() {
+	  //   browserHistory.push('/');
+	  // },
+
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'headphones' },
+	        _react2.default.createElement(
+	          'a',
+	          { id: 'get-another-quote-button', className: 'button' },
+	          'get a lyric'
+	        )
+	      ),
 	      _react2.default.createElement(_quoteContent2.default, {
-	        source: 'wp-json/wp/v2/posts/?filter[orderby]=rand&filter[posts_per_page]=1' })
+	        source: 'wp-json/wp/v2/posts/?filter[orderby]=rand&filter[posts_per_page]=1'
+	      })
 	    );
 	  }
 
@@ -25480,7 +25492,7 @@
 /* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _react = __webpack_require__(2);
 
@@ -25489,32 +25501,18 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var QuoteContent = _react2.default.createClass({
-	  displayName: "QuoteContent",
+	  displayName: 'QuoteContent',
 
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      postObject: this.props.result,
-	      artist: this.props.title,
-	      lyric: this.props.content
+	      postObject: [],
+	      artist: '',
+	      lyric: ''
 	    };
 	  },
 
 	  componentDidMount: function componentDidMount() {
-	    // $.ajax( {
-	    //   method: 'GET',
-	    //   dataType: 'json',
-	    //   url: 'wp-json/wp/v2/posts?filter[orderby]=rand&filter[posts_per_page]=1',
-	    //
-	    //   success: function ( data ) {
-	    //     console.log(data);
-	    //     this.setState({postObject:data});
-	    //   }.bind(this),
-	    // } );
-	    this._handleGetRequest();
-	  },
-
-	  _handleGetRequest: function _handleGetRequest() {
 	    this.serverRequest = $.get(this.props.source, function (result) {
 	      var postObject = result[0];
 	      console.log(result);
@@ -25525,44 +25523,31 @@
 	    }.bind(this));
 	  },
 
-
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.serverRequest.abort();
 	  },
 
 	  render: function render() {
 	    return _react2.default.createElement(
-	      "div",
+	      'div',
 	      null,
+	      _react2.default.createElement('div', { id: 'quote-content', dangerouslySetInnerHTML: { __html: this.state.lyric } }),
 	      _react2.default.createElement(
-	        "div",
-	        { className: "headphones" },
-	        _react2.default.createElement(
-	          "a",
-	          { id: "get-another-quote-button", className: "button", onClick: this._handleGetRequest },
-	          "get a lyric"
-	        )
-	      ),
-	      _react2.default.createElement("div", { id: "quote-content", dangerouslySetInnerHTML: { __html: this.state.lyric } }),
-	      _react2.default.createElement(
-	        "h2",
+	        'h2',
 	        null,
-	        "— ",
+	        '— ',
 	        _react2.default.createElement(
-	          "span",
-	          { id: "quote-title" },
+	          'span',
+	          { id: 'quote-title' },
 	          this.state.artist
 	        )
 	      )
 	    );
 	  }
 	});
-	//
+
 	// QuoteContent.propTypes = {
-	//   result: React.PropTypes.shape({
-	//     title: React.PropTypes.string,
-	//     content: React.PropTypes.string
-	//   })
+	//   _handleGetRequest: React.PropTypes.func.isRequired
 	// };
 
 	module.exports = QuoteContent;
