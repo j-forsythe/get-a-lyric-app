@@ -25461,25 +25461,12 @@
 	  displayName: 'QuoteApp',
 
 
-	  //  _handleClick() {
-	  //   browserHistory.push('/');
-	  // },
-
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'headphones' },
-	        _react2.default.createElement(
-	          'a',
-	          { id: 'get-another-quote-button', className: 'button' },
-	          'get a lyric'
-	        )
-	      ),
 	      _react2.default.createElement(_quoteContent2.default, {
-	        source: 'wp-json/wp/v2/posts/?filter[orderby]=rand&filter[posts_per_page]=1'
+	        source: 'wp-json/wp/v2/posts/?filter[orderby]=rand'
 	      })
 	    );
 	  }
@@ -25508,17 +25495,17 @@
 	    return {
 	      postObject: [],
 	      artist: '',
-	      lyric: ''
+	      lyric: '',
+	      indexNum: 0
 	    };
 	  },
 
 	  componentDidMount: function componentDidMount() {
 	    this.serverRequest = $.get(this.props.source, function (result) {
-	      var postObject = result[0];
+	      var wpObject = result;
 	      console.log(result);
 	      this.setState({
-	        artist: postObject.title.rendered,
-	        lyric: postObject.content.rendered
+	        postObject: wpObject
 	      });
 	    }.bind(this));
 	  },
@@ -25527,10 +25514,32 @@
 	    this.serverRequest.abort();
 	  },
 
+	  _handleClick: function _handleClick() {
+	    if (this.state.postObject.length === this.state.indexNum) {
+	      this.setState({
+	        indexNum: 0
+	      });
+	    } else {
+	      this.setState({
+	        artist: this.state.postObject[this.state.indexNum].title.rendered,
+	        lyric: this.state.postObject[this.state.indexNum].content.rendered,
+	        indexNum: this.state.indexNum + 1
+	      });
+	    }
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'headphones' },
+	        _react2.default.createElement(
+	          'a',
+	          { id: 'get-another-quote-button', className: 'button', onClick: this._handleClick },
+	          'get a lyric'
+	        )
+	      ),
 	      _react2.default.createElement('div', { id: 'quote-content', dangerouslySetInnerHTML: { __html: this.state.lyric } }),
 	      _react2.default.createElement(
 	        'h2',
