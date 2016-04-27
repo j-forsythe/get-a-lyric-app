@@ -665,6 +665,10 @@ html {
   color: #ffffff;
   background: #000000; }
 
+#quotes {
+  width: 50%;
+  margin: 0 auto; }
+
 .button {
   text-decoration: none; }
 
@@ -690,8 +694,8 @@ html {
     .headphones a:hover {
       color: #aba6ad; }
 
-.quotes {
-  height: 50vh;
+.quote-container {
+  height: 80vh;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -703,9 +707,15 @@ html {
           flex-direction: column;
   padding-top: 2rem;
   margin: 1rem 3rem; }
-  .quotes h2 {
+  .quote-container h2 {
     text-align: right; }
 
 #quote-content {
   height: 50%;
-  font-style: italic; }
+  font-style: italic;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }

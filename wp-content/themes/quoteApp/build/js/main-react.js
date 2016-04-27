@@ -25460,13 +25460,31 @@
 	var QuoteApp = _react2.default.createClass({
 	  displayName: 'QuoteApp',
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      postObject: []
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.serverRequest = $.get('wp-json/wp/v2/posts/?filter[orderby]=rand', function (result) {
+	      var wpObject = result;
+	      console.log(wpObject);
+	      this.setState({
+	        postObject: wpObject
+	      });
+	    }.bind(this));
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.serverRequest.abort();
+	  },
 
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      null,
 	      _react2.default.createElement(_quoteContent2.default, {
-	        source: 'wp-json/wp/v2/posts/?filter[orderby]=rand'
+	        source: this.state.postObject
 	      })
 	    );
 	  }
@@ -25493,36 +25511,29 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      postObject: [],
 	      artist: '',
 	      lyric: '',
 	      indexNum: 0
 	    };
 	  },
 
-	  componentDidMount: function componentDidMount() {
-	    this.serverRequest = $.get(this.props.source, function (result) {
-	      var wpObject = result;
-	      console.log(result);
-	      this.setState({
-	        postObject: wpObject
-	      });
-	    }.bind(this));
+	  componentDidUpdate: function componentDidUpdate() {
+	    this.setState({
+	      artist: this.props.source[this.state.indexNum].title.rendered,
+	      lyric: this.props.source[this.state.indexNum].content.rendered
+	    });
 	  },
 
-	  componentWillUnmount: function componentWillUnmount() {
-	    this.serverRequest.abort();
-	  },
-
+	  // indexNum: this.state.indexNum + 1,
 	  _handleClick: function _handleClick() {
-	    if (this.state.postObject.length === this.state.indexNum) {
+	    if (this.props.source.length === this.state.indexNum) {
 	      this.setState({
 	        indexNum: 0
 	      });
 	    } else {
 	      this.setState({
-	        artist: this.state.postObject[this.state.indexNum].title.rendered,
-	        lyric: this.state.postObject[this.state.indexNum].content.rendered,
+	        artist: this.props.source[this.state.indexNum].title.rendered,
+	        lyric: this.props.source[this.state.indexNum].content.rendered,
 	        indexNum: this.state.indexNum + 1
 	      });
 	    }
@@ -25530,7 +25541,7 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      null,
+	      { className: 'quote-container' },
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'headphones' },
@@ -25554,10 +25565,6 @@
 	    );
 	  }
 	});
-
-	// QuoteContent.propTypes = {
-	//   _handleGetRequest: React.PropTypes.func.isRequired
-	// };
 
 	module.exports = QuoteContent;
 

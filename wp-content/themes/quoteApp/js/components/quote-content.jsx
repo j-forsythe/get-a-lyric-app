@@ -4,46 +4,40 @@ var QuoteContent = React.createClass({
 
   getInitialState: function() {
     return {
-      postObject: [],
       artist: '',
       lyric: '',
       indexNum: 0
     };
   },
 
-  componentDidMount: function() {
-    this.serverRequest = $.get(this.props.source, function (result) {
-      var wpObject = result;
-      console.log(result);
+  componentDidUpdate: function() {
       this.setState({
-        postObject: wpObject,
+        artist: this.props.source[this.state.indexNum].title.rendered,
+        lyric: this.props.source[this.state.indexNum].content.rendered,
+        // indexNum: this.state.indexNum + 1,
       });
-    }.bind(this));
   },
 
-  componentWillUnmount: function() {
-    this.serverRequest.abort();
-  },
+
 
   _handleClick() {
-    if (this.state.postObject.length === this.state.indexNum) {
+    if (this.props.source.length === this.state.indexNum) {
       this.setState({
         indexNum: 0
       });
     }
     else {
-    this.setState({
-      artist: this.state.postObject[this.state.indexNum].title.rendered,
-      lyric: this.state.postObject[this.state.indexNum].content.rendered,
-      indexNum: this.state.indexNum + 1,
-    });
-  }
+      this.setState({
+        artist: this.props.source[this.state.indexNum].title.rendered,
+        lyric: this.props.source[this.state.indexNum].content.rendered,
+        indexNum: this.state.indexNum + 1,
+      });
+    }
   },
-
 
   render(){
     return (
-      <div>
+      <div  className="quote-container">
         <div className="headphones">
           <a id="get-another-quote-button" className="button" onClick={this._handleClick}>get a lyric</a>
         </div>
@@ -55,9 +49,5 @@ var QuoteContent = React.createClass({
 
 
 });
-
-// QuoteContent.propTypes = {
-//   _handleGetRequest: React.PropTypes.func.isRequired
-// };
 
 module.exports = QuoteContent;

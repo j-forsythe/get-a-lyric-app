@@ -3,14 +3,19 @@
 --------------------------------------------------------------*/
 html {
   background: #000000;
-
 }
+
 /* Front page */
 .site-content {
   width: 100vw;
   text-align: center;
   color: #ffffff;
   background: #000000;
+}
+
+#quotes {
+  width: 50%;
+  margin: 0 auto;
 }
 
 .button {
@@ -36,8 +41,8 @@ html {
   }
 }
 
-.quotes {
-  height: 50vh;
+.quote-container {
+  height: 80vh;
   display: flex;
   align-content: space-between;
   flex-direction: column;
@@ -52,4 +57,7 @@ html {
 #quote-content {
   height: 50%;
   font-style: italic;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
