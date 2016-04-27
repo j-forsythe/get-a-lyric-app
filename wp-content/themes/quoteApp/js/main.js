@@ -1,4 +1,4 @@
-
+//First attempt at WP API call using jQuery --> See main.jsx for React version
 jQuery(document).ready( function( $ ) {
   $(window).load( function(e) {
     e.preventDefault();
