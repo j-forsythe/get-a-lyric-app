@@ -11,7 +11,7 @@ var QuoteApp = React.createClass({
   },
 
   componentDidMount: function() {
-    this.serverRequest = $.get('wp-json/wp/v2/posts/?filter[orderby]=rand', function (result) {
+    this.serverRequest = $.get('wp-json/wp/v2/posts/?filter[orderby]=rand&per_page=50', function (result) {
       var wpObject = result;
       console.log(wpObject);
       this.setState({
