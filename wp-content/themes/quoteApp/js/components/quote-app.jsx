@@ -19,6 +19,7 @@ var QuoteApp = React.createClass({
       });
     }.bind(this));
   },
+
   componentWillUnmount: function() {
     this.serverRequest.abort();
   },

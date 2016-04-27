@@ -25475,6 +25475,7 @@
 	      });
 	    }.bind(this));
 	  },
+
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.serverRequest.abort();
 	  },
@@ -25511,33 +25512,21 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
+	      postObject: [],
 	      artist: '',
 	      lyric: '',
 	      indexNum: 0
 	    };
 	  },
 
-	  componentDidUpdate: function componentDidUpdate() {
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    this.setState({
-	      artist: this.props.source[this.state.indexNum].title.rendered,
-	      lyric: this.props.source[this.state.indexNum].content.rendered
+	      artist: nextProps.source[this.state.indexNum].title.rendered,
+	      lyric: nextProps.source[this.state.indexNum].content.rendered,
+	      indexNum: this.state.indexNum + 1
 	    });
 	  },
 
-	  // indexNum: this.state.indexNum + 1,
-	  _handleClick: function _handleClick() {
-	    if (this.props.source.length === this.state.indexNum) {
-	      this.setState({
-	        indexNum: 0
-	      });
-	    } else {
-	      this.setState({
-	        artist: this.props.source[this.state.indexNum].title.rendered,
-	        lyric: this.props.source[this.state.indexNum].content.rendered,
-	        indexNum: this.state.indexNum + 1
-	      });
-	    }
-	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -25563,6 +25552,20 @@
 	        )
 	      )
 	    );
+	  },
+	  _handleClick: function _handleClick(event) {
+	    event.preventDefault();
+	    if (this.props.source.length === this.state.indexNum) {
+	      this.setState({
+	        indexNum: 0
+	      });
+	    } else {
+	      this.setState({
+	        artist: this.props.source[this.state.indexNum].title.rendered,
+	        lyric: this.props.source[this.state.indexNum].content.rendered,
+	        indexNum: this.state.indexNum + 1
+	      });
+	    }
 	  }
 	});
 

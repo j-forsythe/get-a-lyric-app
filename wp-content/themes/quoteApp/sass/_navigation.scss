@@ -14,6 +14,7 @@ a {
 	&:focus,
 	&:active {
 		color: #710db6;
+		cursor: pointer;
 	}
 	&:focus {
 		outline: thin dotted;

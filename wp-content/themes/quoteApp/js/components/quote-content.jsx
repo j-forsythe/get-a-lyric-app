@@ -4,35 +4,19 @@ var QuoteContent = React.createClass({
 
   getInitialState: function() {
     return {
+      postObject: [],
       artist: '',
       lyric: '',
       indexNum: 0
     };
   },
 
-  componentDidUpdate: function() {
+  componentWillReceiveProps: function(nextProps) {
       this.setState({
-        artist: this.props.source[this.state.indexNum].title.rendered,
-        lyric: this.props.source[this.state.indexNum].content.rendered,
-        // indexNum: this.state.indexNum + 1,
-      });
-  },
-
-
-
-  _handleClick() {
-    if (this.props.source.length === this.state.indexNum) {
-      this.setState({
-        indexNum: 0
-      });
-    }
-    else {
-      this.setState({
-        artist: this.props.source[this.state.indexNum].title.rendered,
-        lyric: this.props.source[this.state.indexNum].content.rendered,
+        artist: nextProps.source[this.state.indexNum].title.rendered,
+        lyric: nextProps.source[this.state.indexNum].content.rendered,
         indexNum: this.state.indexNum + 1,
       });
-    }
   },
 
   render(){
@@ -47,6 +31,21 @@ var QuoteContent = React.createClass({
     )
   },
 
+  _handleClick(event) {
+    event.preventDefault();
+    if (this.props.source.length === this.state.indexNum) {
+      this.setState({
+        indexNum: 0
+      });
+    }
+    else {
+      this.setState({
+        artist: this.props.source[this.state.indexNum].title.rendered,
+        lyric: this.props.source[this.state.indexNum].content.rendered,
+        indexNum: this.state.indexNum + 1
+      });
+    }
+  }
 
 });
 
