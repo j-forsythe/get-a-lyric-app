@@ -35,7 +35,7 @@ var QuoteContent = React.createClass({
     event.preventDefault();
     if (this.props.source.length === this.state.indexNum) {
       this.setState({
-        indexNum: 0
+        indexNum: 0,
       });
     }
     else {
